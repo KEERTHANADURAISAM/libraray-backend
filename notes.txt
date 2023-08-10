@@ -1,0 +1,125 @@
+connect backend and frontend using middleware cors
+CORS-cross origin resource sharing
+server domain enable pana cors
+
+ela port  server access pana mudiyathu so server origin define pannanum
+
+app.use(cors({
+origin:"http://localhost:3000"//only 3000 port mattum tha access pana mudium
+}))
+
+server deploy pana render.com and we get a url
+
+//connect DB
+install mongodb
+Db ku server tha client so mongoClient use pani connet panrom 
+
+const mongodb=require("mongodb")
+const mongoClient =mongodb.MongoClient;
+
+const mongoClient intha variable vachu db ku api hit panuvom
+mongoClient na server la irunthu  db point panuthu
+//connect a Db
+// step1:Create a connection bwt Nodejs and MongoDb
+// step2:select the DB
+// step3:select the Collection
+// step4:Do the Operation (CRUD)
+// step5:Close the Connection
+// if any error throw error
+
+
+mongodb port number localhost:27071
+
+const connection=mongoClient.connect()
+//.connect 1 url and prms 2 parameter
+connect("localhost:27071") (promise async await) so
+const URL = "mongodb://localhost:27071";
+server and db connect pana protocall mongodb
+app.post("/user", async function (req, res) {
+//connect a Db
+try{
+1.// step1:Create a connection bwt Nodejs and MongoDb
+const connection= await mongoClient.connect(URL)//url stored("localhost:27071")
+
+2.// step2:select the DB
+const db=connection.db(DB);//stored the db name library
+db variable 1 parameter string
+
+3.// step3:select the Collection
+// step4:Do the Operation (CRUD)
+ await db.collection("Books").insertOne(req.body)
+
+collection variable 2 parametr string and prms so w use await
+
+4.// step5:Close the Connection
+await connection.close();
+collection variable 2 parametr string and prms so w use await
+
+res.json("Data Inserted")
+}catch(error){
+// if any error throw error we use try catch
+res.status(500).json({message: "something Went Wrong"})
+ 
+res.status(500)-db connect agalana athu server side error so we send the res.status(500);
+
+}
+
+})
+
+after connect the db post the data getting error in 
+MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:27071
+    at Timeout._onTimeout (D:\guvi\class notes and practice\Backend notes and practice\server practice\working with backend url with react library app\server\node_modules\mongodb\lib\sdam\topology.js:278:38)
+    at listOnTimeout (node:internal/timers:559:17)
+    at processTimers (node:internal/timers:502:7) {
+  reason: TopologyDescription {
+    type: 'Unknown',
+    servers: Map(1) { 'localhost:27071' => [ServerDescription] },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: null,
+    maxElectionId: null,
+    maxSetVersion: null,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {}
+}
+
+
+how to solve it???
+This happens because the MondgDB server is stopped. to fix this you can,
+ 
+ search windows system
+
+1 search for Services ,for that search using the left bottom corner search option.
+
+2 then there is a gear icon named with 'Services'.
+
+3 after clicking that you will get a window with lot of services
+
+4 scroll down and you will find 'MongoDB server (MongoDB)'.
+
+5 so you will see that there is an option to start the service.
+
+6 start it.
+
+1 then open your command prompt.
+
+2 type mongod
+
+now you can connect to your server.
+
+
+
+//viewing data 
+step 3 and 4
+await db.collection("Books").find()
+
+find pota object ah kdaikum
+
+so we use find().toArray()
+its give an Array
+and .toArray () return the prms so res.json(resuser);
