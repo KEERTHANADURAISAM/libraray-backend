@@ -124,4 +124,4 @@ app.get("/user", function (req, res) {
   res.json(resUser);
 });
 
-app.listen(3001);
+app.listen(process.env.PORT || 3001);
